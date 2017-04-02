@@ -14,9 +14,9 @@ module.exports = {
         return res.data;
       }
     }).catch(err=>{
-      // alert(err);
+      alert(err);
       // console.log(err);
-      throw new Error(err);
+      // throw new Error(err);
     });
   }
 }

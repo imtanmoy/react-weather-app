@@ -25,8 +25,7 @@ export default class Main extends Component {
       OpenWeatherMap.getTemp(location).then(result=>{
         console.log(result);
         this.setState({
-          location:result.name,
-          temp:result.main.temp,
+          data: result,
           isLoaded: true
         });
       });
@@ -37,7 +36,14 @@ export default class Main extends Component {
 
    renderResult(){
     if(this.state.isLoaded === true){
-      return (<WeatherResult location={this.state.location} temp={this.state.temp}/>);
+      return (
+        <div className="row">
+          <div className="col-md-offset-3 col-md-6">
+              <WeatherResult data={this.state.data}/>
+          </div>
+        </div>
+
+      );
     }
   }
 
@@ -45,7 +51,7 @@ export default class Main extends Component {
     return (
       <div className="container">
           <Nav/>
-          <div>
+          <div className="row">
             <h1>React Weather Application</h1>
           </div>
           <WeatherForm onSearch={this.handelSearch.bind(this)}/>
