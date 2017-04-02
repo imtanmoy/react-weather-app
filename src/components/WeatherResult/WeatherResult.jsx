@@ -11,6 +11,8 @@ export default class WeatherResult extends Component{
       );
   }
 }
+
+
 WeatherResult.propTypes = {
   location: PropTypes.string.isRequired,
   temp: PropTypes.number.isRequired

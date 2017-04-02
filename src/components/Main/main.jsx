@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
-import Nav from '../nav/nav';
+import Nav from '../Nav/Nav';
 import WeatherForm from '../WeatherForm/WeatherForm';
 import WeatherResult from '../WeatherResult/WeatherResult';
 import axios from 'axios';
+
+
+
 const apiUrl = "http://api.openweathermap.org/data/2.5/weather?appid=4cb8e35d1e36c4f6fb29f7ed2c4b878c&units=metric";
+
+
+
+
 export default class Main extends Component {
 
 
@@ -18,40 +25,29 @@ export default class Main extends Component {
 
 
   handelSearch = (location) =>{
-      console.log(location);
       var encodedLocation = encodeURIComponent(location);
       var url= apiUrl+"&q="+encodedLocation;
       axios.get(url).then(res=>{
-        this.setState={
-          location:location,
-          temp:res.data.main.temp,
+        let newLocation=location;
+        let newTemp=res.data.main.temp;
+        this.setState({
+          location:newLocation,
+          temp:newTemp,
           isLoaded: true
-        }
-        console.log(res.data.main.temp);
-
+        });
       });
     }
 
 
-  render() {
-      var {isLoaded, location, temp}=this.state;
-      function renderResult(){
-      if(isLoaded){
-        console.log(location);
-        console.log(temp);
-        console.log(isLoaded);
-        return <h3>Fetching Weather</h3>;
-        }else if (temp && location) {
-          console.log(temp);
-          console.log(location);
-          console.log(temp);
-          console.log(isLoaded);
-          return <WeatherResult location={location} temp={temp}/>;
-        }else {
-          return "";
-        }
-      }
 
+
+   renderResult(){
+    if(this.state.isLoaded === true){
+      return (<WeatherResult location={this.state.location} temp={this.state.temp}/>);
+    }
+  }
+
+  render() {
     return (
       <div className="container">
           <Nav/>
@@ -59,7 +55,7 @@ export default class Main extends Component {
             <h1>React Weather Application</h1>
           </div>
           <WeatherForm onSearch={this.handelSearch.bind(this)}/>
-          {renderResult()}
+          {this.renderResult()}
       </div>
 
     );
