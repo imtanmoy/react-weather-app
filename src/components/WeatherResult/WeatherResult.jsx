@@ -1,6 +1,6 @@
 import React ,{Component,PropTypes} from 'react';
 import './style.css';
-import img from '../../assets/icons/thunder.svg';
+import Forecastimage from './Forecastimage';
 
 export default class WeatherResult extends Component{
 
@@ -33,7 +33,7 @@ renderTime(){
                 <div className="wstatus">{this.props.data.weather[0].main}</div>
                 <div className="row">
                     <div className="weather-icon">
-                      <img alt="icon" src={img}/>
+                      {Forecastimage.renderForecastImage(this.props.data.weather[0].icon)}
                       <div className="weather-text">{this.props.data.main.temp}&#176; C</div>
                     </div>
                 </div>
